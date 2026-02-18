@@ -127,4 +127,47 @@ void main() {
       ]);
     });
   });
+
+  group('PensionLinkStatus', () {
+    test('has correct values', () {
+      expect(PensionLinkStatus.values, hasLength(3));
+      expect(PensionLinkStatus.values.map((e) => e.name), [
+        'linked',
+        'notLinked',
+        'verifying',
+      ]);
+    });
+  });
+
+  group('ContributionStatus', () {
+    test('has correct values', () {
+      expect(ContributionStatus.values, hasLength(3));
+      expect(ContributionStatus.values.map((e) => e.name), [
+        'pending',
+        'completed',
+        'failed',
+      ]);
+    });
+  });
+
+  group('AccountProvider', () {
+    test('has correct values', () {
+      expect(AccountProvider.values, hasLength(6));
+      expect(AccountProvider.values.map((e) => e.name), [
+        'mtn',
+        'airtel',
+        'stanbic',
+        'dfcu',
+        'equity',
+        'centenary',
+      ]);
+    });
+  });
+
+  group('KycAccountType', () {
+    test('has correct values', () {
+      expect(KycAccountType.values, hasLength(2));
+      expect(KycAccountType.values.map((e) => e.name), ['business', 'gig']);
+    });
+  });
 }

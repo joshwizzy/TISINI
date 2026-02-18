@@ -47,3 +47,7 @@ enum IndicatorType {
 enum PensionLinkStatus { linked, notLinked, verifying }
 
 enum ContributionStatus { pending, completed, failed }
+
+enum AccountProvider { mtn, airtel, stanbic, dfcu, equity, centenary }
+
+enum KycAccountType { business, gig }

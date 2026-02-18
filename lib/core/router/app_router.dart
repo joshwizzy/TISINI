@@ -18,7 +18,15 @@ import 'package:tisini/features/home/presentation/screens/attention_list_screen.
 import 'package:tisini/features/home/presentation/screens/dashboard_screen.dart';
 import 'package:tisini/features/home/presentation/screens/home_screen.dart';
 import 'package:tisini/features/home/presentation/screens/insight_detail_screen.dart';
+import 'package:tisini/features/more/presentation/screens/connect_account_screen.dart';
+import 'package:tisini/features/more/presentation/screens/connected_accounts_screen.dart';
+import 'package:tisini/features/more/presentation/screens/help_support_screen.dart';
+import 'package:tisini/features/more/presentation/screens/legal_about_screen.dart';
 import 'package:tisini/features/more/presentation/screens/more_hub_screen.dart';
+import 'package:tisini/features/more/presentation/screens/notification_settings_screen.dart';
+import 'package:tisini/features/more/presentation/screens/pinned_merchants_screen.dart';
+import 'package:tisini/features/more/presentation/screens/profile_screen.dart';
+import 'package:tisini/features/more/presentation/screens/security_settings_screen.dart';
 import 'package:tisini/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:tisini/features/onboarding/presentation/screens/permissions_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/business/business_category_screen.dart';
@@ -383,6 +391,50 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: '/more',
                 name: RouteNames.moreHub,
                 builder: (_, __) => const MoreHubScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'profile',
+                    name: RouteNames.profile,
+                    builder: (_, __) => const ProfileScreen(),
+                  ),
+                  GoRoute(
+                    path: 'accounts',
+                    name: RouteNames.connectedAccounts,
+                    builder: (_, __) => const ConnectedAccountsScreen(),
+                    routes: [
+                      GoRoute(
+                        path: 'connect',
+                        name: RouteNames.connectAccount,
+                        builder: (_, __) => const ConnectAccountScreen(),
+                      ),
+                    ],
+                  ),
+                  GoRoute(
+                    path: 'security',
+                    name: RouteNames.securitySettings,
+                    builder: (_, __) => const SecuritySettingsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'notifications',
+                    name: RouteNames.notificationSettings,
+                    builder: (_, __) => const NotificationSettingsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'merchants',
+                    name: RouteNames.pinnedMerchants,
+                    builder: (_, __) => const PinnedMerchantsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'help',
+                    name: RouteNames.helpSupport,
+                    builder: (_, __) => const HelpSupportScreen(),
+                  ),
+                  GoRoute(
+                    path: 'legal',
+                    name: RouteNames.legalAbout,
+                    builder: (_, __) => const LegalAboutScreen(),
+                  ),
+                ],
               ),
             ],
           ),
