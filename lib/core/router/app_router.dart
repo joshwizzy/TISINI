@@ -8,11 +8,20 @@ import 'package:tisini/features/activity/presentation/screens/activity_list_scre
 import 'package:tisini/features/auth/presentation/screens/create_pin_screen.dart';
 import 'package:tisini/features/auth/presentation/screens/login_screen.dart';
 import 'package:tisini/features/auth/presentation/screens/otp_screen.dart';
+import 'package:tisini/features/home/presentation/screens/attention_list_screen.dart';
+import 'package:tisini/features/home/presentation/screens/dashboard_screen.dart';
 import 'package:tisini/features/home/presentation/screens/home_screen.dart';
+import 'package:tisini/features/home/presentation/screens/insight_detail_screen.dart';
 import 'package:tisini/features/more/presentation/screens/more_hub_screen.dart';
 import 'package:tisini/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:tisini/features/onboarding/presentation/screens/permissions_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/pay_hub_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/send/send_amount_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/send/send_confirm_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/send/send_details_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/send/send_failed_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/send/send_receipt_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/send/send_recipient_screen.dart';
 import 'package:tisini/features/pia/presentation/screens/pia_feed_screen.dart';
 import 'package:tisini/features/splash/presentation/screens/splash_screen.dart';
 import 'package:tisini/shared/widgets/bottom_nav_scaffold.dart';
@@ -83,6 +92,25 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: '/home',
                 name: RouteNames.home,
                 builder: (_, __) => const HomeScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'dashboard',
+                    name: RouteNames.dashboard,
+                    builder: (_, __) => const DashboardScreen(),
+                  ),
+                  GoRoute(
+                    path: 'attention',
+                    name: RouteNames.attentionList,
+                    builder: (_, __) => const AttentionListScreen(),
+                  ),
+                  GoRoute(
+                    path: 'insight/:id',
+                    name: RouteNames.insightDetail,
+                    builder: (_, state) => InsightDetailScreen(
+                      insightId: state.pathParameters['id']!,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -94,6 +122,40 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: '/pay',
                 name: RouteNames.payHub,
                 builder: (_, __) => const PayHubScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'send/recipient',
+                    name: RouteNames.sendRecipient,
+                    builder: (_, __) => const SendRecipientScreen(),
+                  ),
+                  GoRoute(
+                    path: 'send/details',
+                    name: RouteNames.sendDetails,
+                    builder: (_, __) => const SendDetailsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'send/amount',
+                    name: RouteNames.sendAmount,
+                    builder: (_, __) => const SendAmountScreen(),
+                  ),
+                  GoRoute(
+                    path: 'send/confirm',
+                    name: RouteNames.sendConfirm,
+                    builder: (_, __) => const SendConfirmScreen(),
+                  ),
+                  GoRoute(
+                    path: 'send/receipt/:txId',
+                    name: RouteNames.sendReceipt,
+                    builder: (_, state) => SendReceiptScreen(
+                      transactionId: state.pathParameters['txId']!,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'send/failed',
+                    name: RouteNames.sendFailed,
+                    builder: (_, __) => const SendFailedScreen(),
+                  ),
+                ],
               ),
             ],
           ),

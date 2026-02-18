@@ -75,5 +75,53 @@ void main() {
       final branches = shellRoutes.first.branches;
       expect(branches, hasLength(5));
     });
+
+    test('home branch has dashboard sub-route', () {
+      final router = container.read(routerProvider);
+      final config = router.configuration;
+
+      final shellRoutes = config.routes
+          .whereType<StatefulShellRoute>()
+          .toList();
+      final homeBranch = shellRoutes.first.branches.first;
+      final homeRoute = homeBranch.routes.first as GoRoute;
+      final subPaths = homeRoute.routes.whereType<GoRoute>().map((r) => r.path);
+
+      expect(subPaths, contains('dashboard'));
+      expect(subPaths, contains('attention'));
+      expect(subPaths, contains('insight/:id'));
+    });
+
+    test('pay branch has 6 send sub-routes', () {
+      final router = container.read(routerProvider);
+      final config = router.configuration;
+
+      final shellRoutes = config.routes
+          .whereType<StatefulShellRoute>()
+          .toList();
+      final payBranch = shellRoutes.first.branches[1];
+      final payRoute = payBranch.routes.first as GoRoute;
+      final subPaths = payRoute.routes.whereType<GoRoute>().map((r) => r.path);
+
+      expect(subPaths, contains('send/recipient'));
+      expect(subPaths, contains('send/details'));
+      expect(subPaths, contains('send/amount'));
+      expect(subPaths, contains('send/confirm'));
+      expect(subPaths, contains('send/receipt/:txId'));
+      expect(subPaths, contains('send/failed'));
+    });
+
+    test('pay branch has exactly 6 sub-routes', () {
+      final router = container.read(routerProvider);
+      final config = router.configuration;
+
+      final shellRoutes = config.routes
+          .whereType<StatefulShellRoute>()
+          .toList();
+      final payBranch = shellRoutes.first.branches[1];
+      final payRoute = payBranch.routes.first as GoRoute;
+
+      expect(payRoute.routes.whereType<GoRoute>(), hasLength(6));
+    });
   });
 }
