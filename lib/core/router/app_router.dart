@@ -1,18 +1,77 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tisini/core/providers/auth_state_provider.dart';
+import 'package:tisini/core/router/guards/auth_guard.dart';
 import 'package:tisini/core/router/route_names.dart';
 import 'package:tisini/features/activity/presentation/screens/activity_list_screen.dart';
+import 'package:tisini/features/auth/presentation/screens/create_pin_screen.dart';
+import 'package:tisini/features/auth/presentation/screens/login_screen.dart';
+import 'package:tisini/features/auth/presentation/screens/otp_screen.dart';
 import 'package:tisini/features/home/presentation/screens/home_screen.dart';
 import 'package:tisini/features/more/presentation/screens/more_hub_screen.dart';
+import 'package:tisini/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:tisini/features/onboarding/presentation/screens/permissions_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/pay_hub_screen.dart';
 import 'package:tisini/features/pia/presentation/screens/pia_feed_screen.dart';
+import 'package:tisini/features/splash/presentation/screens/splash_screen.dart';
 import 'package:tisini/shared/widgets/bottom_nav_scaffold.dart';
 
+class _AuthStateNotifier extends ChangeNotifier {
+  _AuthStateNotifier(this._ref) {
+    _ref.listen<AuthState>(authStateProvider, (_, __) {
+      notifyListeners();
+    });
+  }
+
+  final Ref _ref;
+}
+
 final routerProvider = Provider<GoRouter>((ref) {
+  final authNotifier = _AuthStateNotifier(ref);
+
   return GoRouter(
-    initialLocation: '/home',
+    initialLocation: '/',
     debugLogDiagnostics: true,
+    refreshListenable: authNotifier,
+    redirect: (context, state) {
+      final authState = ref.read(authStateProvider);
+      return authGuard(location: state.matchedLocation, authState: authState);
+    },
     routes: [
+      // Pre-auth routes
+      GoRoute(
+        path: '/',
+        name: RouteNames.splash,
+        builder: (_, __) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: '/onboarding',
+        name: RouteNames.onboarding,
+        builder: (_, __) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: '/login',
+        name: RouteNames.login,
+        builder: (_, __) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/otp',
+        name: RouteNames.otp,
+        builder: (_, __) => const OtpScreen(),
+      ),
+      GoRoute(
+        path: '/create-pin',
+        name: RouteNames.createPin,
+        builder: (_, __) => const CreatePinScreen(),
+      ),
+      GoRoute(
+        path: '/permissions',
+        name: RouteNames.permissions,
+        builder: (_, __) => const PermissionsScreen(),
+      ),
+
+      // Authenticated shell routes
       StatefulShellRoute.indexedStack(
         builder: (_, __, navigationShell) =>
             BottomNavScaffold(navigationShell: navigationShell),
