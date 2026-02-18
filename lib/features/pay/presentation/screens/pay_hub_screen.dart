@@ -173,14 +173,12 @@ class _QuickActionsRow extends StatelessWidget {
         _QuickAction(
           icon: PhosphorIconsBold.handCoins,
           label: 'Request',
-          // TODO(tisini): Implement request flow
-          onTap: () {},
+          onTap: () => context.goNamed(RouteNames.requestCreate),
         ),
         _QuickAction(
           icon: PhosphorIconsBold.qrCode,
           label: 'Scan',
-          // TODO(tisini): Implement scan flow
-          onTap: () {},
+          onTap: () => context.goNamed(RouteNames.scan),
         ),
       ],
     );
@@ -239,15 +237,32 @@ class _CategoriesGrid extends StatelessWidget {
           mainAxisSpacing: AppSpacing.sm,
           crossAxisSpacing: AppSpacing.sm,
           childAspectRatio: 2,
-          children: const [
+          children: [
             PayCategoryTile(
               icon: PhosphorIconsBold.package,
               label: 'Suppliers',
+              onTap: () => context.goNamed(RouteNames.businessCategory),
             ),
-            PayCategoryTile(icon: PhosphorIconsBold.receipt, label: 'Bills'),
-            PayCategoryTile(icon: PhosphorIconsBold.users, label: 'Wages'),
-            PayCategoryTile(icon: PhosphorIconsBold.scales, label: 'Statutory'),
-            PayCategoryTile(icon: PhosphorIconsBold.plus, label: 'Top Up'),
+            PayCategoryTile(
+              icon: PhosphorIconsBold.receipt,
+              label: 'Bills',
+              onTap: () => context.goNamed(RouteNames.businessCategory),
+            ),
+            PayCategoryTile(
+              icon: PhosphorIconsBold.users,
+              label: 'Wages',
+              onTap: () => context.goNamed(RouteNames.businessCategory),
+            ),
+            PayCategoryTile(
+              icon: PhosphorIconsBold.scales,
+              label: 'Statutory',
+              onTap: () => context.goNamed(RouteNames.businessCategory),
+            ),
+            PayCategoryTile(
+              icon: PhosphorIconsBold.plus,
+              label: 'Top Up',
+              onTap: () => context.goNamed(RouteNames.topupSource),
+            ),
           ],
         ),
       ],

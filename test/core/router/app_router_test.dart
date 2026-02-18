@@ -92,7 +92,7 @@ void main() {
       expect(subPaths, contains('insight/:id'));
     });
 
-    test('pay branch has 6 send sub-routes', () {
+    test('pay branch has send sub-routes', () {
       final router = container.read(routerProvider);
       final config = router.configuration;
 
@@ -111,7 +111,74 @@ void main() {
       expect(subPaths, contains('send/failed'));
     });
 
-    test('pay branch has exactly 6 sub-routes', () {
+    test('pay branch has request sub-routes', () {
+      final router = container.read(routerProvider);
+      final config = router.configuration;
+
+      final shellRoutes = config.routes
+          .whereType<StatefulShellRoute>()
+          .toList();
+      final payBranch = shellRoutes.first.branches[1];
+      final payRoute = payBranch.routes.first as GoRoute;
+      final subPaths = payRoute.routes.whereType<GoRoute>().map((r) => r.path);
+
+      expect(subPaths, contains('request/create'));
+      expect(subPaths, contains('request/share/:id'));
+      expect(subPaths, contains('request/status/:id'));
+    });
+
+    test('pay branch has scan sub-routes', () {
+      final router = container.read(routerProvider);
+      final config = router.configuration;
+
+      final shellRoutes = config.routes
+          .whereType<StatefulShellRoute>()
+          .toList();
+      final payBranch = shellRoutes.first.branches[1];
+      final payRoute = payBranch.routes.first as GoRoute;
+      final subPaths = payRoute.routes.whereType<GoRoute>().map((r) => r.path);
+
+      expect(subPaths, contains('scan'));
+      expect(subPaths, contains('scan/manual'));
+      expect(subPaths, contains('scan/confirm'));
+      expect(subPaths, contains('scan/receipt/:txId'));
+    });
+
+    test('pay branch has business pay sub-routes', () {
+      final router = container.read(routerProvider);
+      final config = router.configuration;
+
+      final shellRoutes = config.routes
+          .whereType<StatefulShellRoute>()
+          .toList();
+      final payBranch = shellRoutes.first.branches[1];
+      final payRoute = payBranch.routes.first as GoRoute;
+      final subPaths = payRoute.routes.whereType<GoRoute>().map((r) => r.path);
+
+      expect(subPaths, contains('business/category'));
+      expect(subPaths, contains('business/payee'));
+      expect(subPaths, contains('business/confirm'));
+      expect(subPaths, contains('business/receipt/:txId'));
+    });
+
+    test('pay branch has top up sub-routes', () {
+      final router = container.read(routerProvider);
+      final config = router.configuration;
+
+      final shellRoutes = config.routes
+          .whereType<StatefulShellRoute>()
+          .toList();
+      final payBranch = shellRoutes.first.branches[1];
+      final payRoute = payBranch.routes.first as GoRoute;
+      final subPaths = payRoute.routes.whereType<GoRoute>().map((r) => r.path);
+
+      expect(subPaths, contains('topup/source'));
+      expect(subPaths, contains('topup/amount'));
+      expect(subPaths, contains('topup/confirm'));
+      expect(subPaths, contains('topup/receipt/:txId'));
+    });
+
+    test('pay branch has exactly 21 sub-routes', () {
       final router = container.read(routerProvider);
       final config = router.configuration;
 
@@ -121,7 +188,8 @@ void main() {
       final payBranch = shellRoutes.first.branches[1];
       final payRoute = payBranch.routes.first as GoRoute;
 
-      expect(payRoute.routes.whereType<GoRoute>(), hasLength(6));
+      // 6 send + 3 request + 4 scan + 4 business + 4 topup = 21
+      expect(payRoute.routes.whereType<GoRoute>(), hasLength(21));
     });
   });
 }

@@ -15,13 +15,28 @@ import 'package:tisini/features/home/presentation/screens/insight_detail_screen.
 import 'package:tisini/features/more/presentation/screens/more_hub_screen.dart';
 import 'package:tisini/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:tisini/features/onboarding/presentation/screens/permissions_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/business/business_category_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/business/business_confirm_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/business/business_payee_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/business/business_receipt_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/pay_hub_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/request/request_create_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/request/request_share_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/request/request_status_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/scan/scan_confirm_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/scan/scan_manual_entry_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/scan/scan_receipt_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/scan/scan_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/send/send_amount_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/send/send_confirm_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/send/send_details_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/send/send_failed_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/send/send_receipt_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/send/send_recipient_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/topup/topup_amount_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/topup/topup_confirm_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/topup/topup_receipt_screen.dart';
+import 'package:tisini/features/pay/presentation/screens/topup/topup_source_screen.dart';
 import 'package:tisini/features/pia/presentation/screens/pia_feed_screen.dart';
 import 'package:tisini/features/splash/presentation/screens/splash_screen.dart';
 import 'package:tisini/shared/widgets/bottom_nav_scaffold.dart';
@@ -154,6 +169,95 @@ final routerProvider = Provider<GoRouter>((ref) {
                     path: 'send/failed',
                     name: RouteNames.sendFailed,
                     builder: (_, __) => const SendFailedScreen(),
+                  ),
+                  // Request flow
+                  GoRoute(
+                    path: 'request/create',
+                    name: RouteNames.requestCreate,
+                    builder: (_, __) => const RequestCreateScreen(),
+                  ),
+                  GoRoute(
+                    path: 'request/share/:id',
+                    name: RouteNames.requestShare,
+                    builder: (_, state) => RequestShareScreen(
+                      requestId: state.pathParameters['id']!,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'request/status/:id',
+                    name: RouteNames.requestStatus,
+                    builder: (_, state) => RequestStatusScreen(
+                      requestId: state.pathParameters['id']!,
+                    ),
+                  ),
+                  // Scan flow
+                  GoRoute(
+                    path: 'scan',
+                    name: RouteNames.scan,
+                    builder: (_, __) => const ScanScreen(),
+                  ),
+                  GoRoute(
+                    path: 'scan/manual',
+                    name: RouteNames.scanManual,
+                    builder: (_, __) => const ScanManualEntryScreen(),
+                  ),
+                  GoRoute(
+                    path: 'scan/confirm',
+                    name: RouteNames.scanConfirm,
+                    builder: (_, __) => const ScanConfirmScreen(),
+                  ),
+                  GoRoute(
+                    path: 'scan/receipt/:txId',
+                    name: RouteNames.scanReceipt,
+                    builder: (_, state) => ScanReceiptScreen(
+                      transactionId: state.pathParameters['txId']!,
+                    ),
+                  ),
+                  // Business pay flow
+                  GoRoute(
+                    path: 'business/category',
+                    name: RouteNames.businessCategory,
+                    builder: (_, __) => const BusinessCategoryScreen(),
+                  ),
+                  GoRoute(
+                    path: 'business/payee',
+                    name: RouteNames.businessPayee,
+                    builder: (_, __) => const BusinessPayeeScreen(),
+                  ),
+                  GoRoute(
+                    path: 'business/confirm',
+                    name: RouteNames.businessConfirm,
+                    builder: (_, __) => const BusinessConfirmScreen(),
+                  ),
+                  GoRoute(
+                    path: 'business/receipt/:txId',
+                    name: RouteNames.businessReceipt,
+                    builder: (_, state) => BusinessReceiptScreen(
+                      transactionId: state.pathParameters['txId']!,
+                    ),
+                  ),
+                  // Top up flow
+                  GoRoute(
+                    path: 'topup/source',
+                    name: RouteNames.topupSource,
+                    builder: (_, __) => const TopupSourceScreen(),
+                  ),
+                  GoRoute(
+                    path: 'topup/amount',
+                    name: RouteNames.topupAmount,
+                    builder: (_, __) => const TopupAmountScreen(),
+                  ),
+                  GoRoute(
+                    path: 'topup/confirm',
+                    name: RouteNames.topupConfirm,
+                    builder: (_, __) => const TopupConfirmScreen(),
+                  ),
+                  GoRoute(
+                    path: 'topup/receipt/:txId',
+                    name: RouteNames.topupReceipt,
+                    builder: (_, state) => TopupReceiptScreen(
+                      transactionId: state.pathParameters['txId']!,
+                    ),
                   ),
                 ],
               ),
