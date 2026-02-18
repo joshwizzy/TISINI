@@ -210,5 +210,22 @@ void main() {
       // 4 topup + 5 pension = 26
       expect(payRoute.routes.whereType<GoRoute>(), hasLength(26));
     });
+
+    test('pia branch has 3 sub-routes', () {
+      final router = container.read(routerProvider);
+      final config = router.configuration;
+
+      final shellRoutes = config.routes
+          .whereType<StatefulShellRoute>()
+          .toList();
+      final piaBranch = shellRoutes.first.branches[2];
+      final piaRoute = piaBranch.routes.first as GoRoute;
+      final subPaths = piaRoute.routes.whereType<GoRoute>().map((r) => r.path);
+
+      expect(subPaths, contains('empty'));
+      expect(subPaths, contains('card/:id'));
+      expect(subPaths, contains('pinned'));
+      expect(piaRoute.routes.whereType<GoRoute>(), hasLength(3));
+    });
   });
 }

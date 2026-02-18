@@ -43,7 +43,10 @@ import 'package:tisini/features/pensions/presentation/screens/pension_contribute
 import 'package:tisini/features/pensions/presentation/screens/pension_history_screen.dart';
 import 'package:tisini/features/pensions/presentation/screens/pension_hub_screen.dart';
 import 'package:tisini/features/pensions/presentation/screens/pension_receipt_screen.dart';
+import 'package:tisini/features/pia/presentation/screens/pia_card_detail_screen.dart';
+import 'package:tisini/features/pia/presentation/screens/pia_empty_screen.dart';
 import 'package:tisini/features/pia/presentation/screens/pia_feed_screen.dart';
+import 'package:tisini/features/pia/presentation/screens/pia_pinned_items_screen.dart';
 import 'package:tisini/features/splash/presentation/screens/splash_screen.dart';
 import 'package:tisini/shared/widgets/bottom_nav_scaffold.dart';
 
@@ -306,6 +309,24 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: '/pia',
                 name: RouteNames.piaFeed,
                 builder: (_, __) => const PiaFeedScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'empty',
+                    name: RouteNames.piaEmpty,
+                    builder: (_, __) => const PiaEmptyScreen(),
+                  ),
+                  GoRoute(
+                    path: 'card/:id',
+                    name: RouteNames.piaCardDetail,
+                    builder: (_, state) =>
+                        PiaCardDetailScreen(id: state.pathParameters['id']!),
+                  ),
+                  GoRoute(
+                    path: 'pinned',
+                    name: RouteNames.piaPinned,
+                    builder: (_, __) => const PiaPinnedItemsScreen(),
+                  ),
+                ],
               ),
             ],
           ),
