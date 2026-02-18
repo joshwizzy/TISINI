@@ -5,7 +5,12 @@ import 'package:tisini/core/providers/auth_state_provider.dart';
 import 'package:tisini/core/router/guards/auth_guard.dart';
 import 'package:tisini/core/router/guards/step_up_guard.dart';
 import 'package:tisini/core/router/route_names.dart';
+import 'package:tisini/features/activity/presentation/screens/activity_filters_screen.dart';
 import 'package:tisini/features/activity/presentation/screens/activity_list_screen.dart';
+import 'package:tisini/features/activity/presentation/screens/export_confirm_screen.dart';
+import 'package:tisini/features/activity/presentation/screens/export_period_screen.dart';
+import 'package:tisini/features/activity/presentation/screens/export_success_screen.dart';
+import 'package:tisini/features/activity/presentation/screens/transaction_detail_screen.dart';
 import 'package:tisini/features/auth/presentation/screens/create_pin_screen.dart';
 import 'package:tisini/features/auth/presentation/screens/login_screen.dart';
 import 'package:tisini/features/auth/presentation/screens/otp_screen.dart';
@@ -338,6 +343,35 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: '/activity',
                 name: RouteNames.activityList,
                 builder: (_, __) => const ActivityListScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'filters',
+                    name: RouteNames.activityFilters,
+                    builder: (_, __) => const ActivityFiltersScreen(),
+                  ),
+                  GoRoute(
+                    path: 'transaction/:id',
+                    name: RouteNames.transactionDetail,
+                    builder: (_, state) => TransactionDetailScreen(
+                      id: state.pathParameters['id']!,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'export/period',
+                    name: RouteNames.exportPeriod,
+                    builder: (_, __) => const ExportPeriodScreen(),
+                  ),
+                  GoRoute(
+                    path: 'export/confirm',
+                    name: RouteNames.exportConfirm,
+                    builder: (_, __) => const ExportConfirmScreen(),
+                  ),
+                  GoRoute(
+                    path: 'export/success',
+                    name: RouteNames.exportSuccess,
+                    builder: (_, __) => const ExportSuccessScreen(),
+                  ),
+                ],
               ),
             ],
           ),
