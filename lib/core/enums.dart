@@ -43,3 +43,7 @@ enum IndicatorType {
   businessMomentum,
   dataCompleteness,
 }
+
+enum PensionLinkStatus { linked, notLinked, verifying }
+
+enum ContributionStatus { pending, completed, failed }

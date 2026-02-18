@@ -178,7 +178,25 @@ void main() {
       expect(subPaths, contains('topup/receipt/:txId'));
     });
 
-    test('pay branch has exactly 21 sub-routes', () {
+    test('pay branch has pension sub-routes', () {
+      final router = container.read(routerProvider);
+      final config = router.configuration;
+
+      final shellRoutes = config.routes
+          .whereType<StatefulShellRoute>()
+          .toList();
+      final payBranch = shellRoutes.first.branches[1];
+      final payRoute = payBranch.routes.first as GoRoute;
+      final subPaths = payRoute.routes.whereType<GoRoute>().map((r) => r.path);
+
+      expect(subPaths, contains('pensions'));
+      expect(subPaths, contains('pensions/contribute'));
+      expect(subPaths, contains('pensions/confirm'));
+      expect(subPaths, contains('pensions/receipt/:txId'));
+      expect(subPaths, contains('pensions/history'));
+    });
+
+    test('pay branch has exactly 26 sub-routes', () {
       final router = container.read(routerProvider);
       final config = router.configuration;
 
@@ -188,8 +206,9 @@ void main() {
       final payBranch = shellRoutes.first.branches[1];
       final payRoute = payBranch.routes.first as GoRoute;
 
-      // 6 send + 3 request + 4 scan + 4 business + 4 topup = 21
-      expect(payRoute.routes.whereType<GoRoute>(), hasLength(21));
+      // 6 send + 3 request + 4 scan + 4 business +
+      // 4 topup + 5 pension = 26
+      expect(payRoute.routes.whereType<GoRoute>(), hasLength(26));
     });
   });
 }

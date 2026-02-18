@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tisini/core/providers/auth_state_provider.dart';
 import 'package:tisini/core/router/guards/auth_guard.dart';
+import 'package:tisini/core/router/guards/step_up_guard.dart';
 import 'package:tisini/core/router/route_names.dart';
 import 'package:tisini/features/activity/presentation/screens/activity_list_screen.dart';
 import 'package:tisini/features/auth/presentation/screens/create_pin_screen.dart';
@@ -37,6 +38,11 @@ import 'package:tisini/features/pay/presentation/screens/topup/topup_amount_scre
 import 'package:tisini/features/pay/presentation/screens/topup/topup_confirm_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/topup/topup_receipt_screen.dart';
 import 'package:tisini/features/pay/presentation/screens/topup/topup_source_screen.dart';
+import 'package:tisini/features/pensions/presentation/screens/pension_confirm_screen.dart';
+import 'package:tisini/features/pensions/presentation/screens/pension_contribute_screen.dart';
+import 'package:tisini/features/pensions/presentation/screens/pension_history_screen.dart';
+import 'package:tisini/features/pensions/presentation/screens/pension_hub_screen.dart';
+import 'package:tisini/features/pensions/presentation/screens/pension_receipt_screen.dart';
 import 'package:tisini/features/pia/presentation/screens/pia_feed_screen.dart';
 import 'package:tisini/features/splash/presentation/screens/splash_screen.dart';
 import 'package:tisini/shared/widgets/bottom_nav_scaffold.dart';
@@ -258,6 +264,35 @@ final routerProvider = Provider<GoRouter>((ref) {
                     builder: (_, state) => TopupReceiptScreen(
                       transactionId: state.pathParameters['txId']!,
                     ),
+                  ),
+                  // Pension flow
+                  GoRoute(
+                    path: 'pensions',
+                    name: RouteNames.pensionHub,
+                    builder: (_, __) => const PensionHubScreen(),
+                  ),
+                  GoRoute(
+                    path: 'pensions/contribute',
+                    name: RouteNames.pensionContribute,
+                    builder: (_, __) => const PensionContributeScreen(),
+                  ),
+                  GoRoute(
+                    path: 'pensions/confirm',
+                    name: RouteNames.pensionConfirm,
+                    redirect: (_, state) => stepUpGuard(state),
+                    builder: (_, __) => const PensionConfirmScreen(),
+                  ),
+                  GoRoute(
+                    path: 'pensions/receipt/:txId',
+                    name: RouteNames.pensionReceipt,
+                    builder: (_, state) => PensionReceiptScreen(
+                      transactionId: state.pathParameters['txId']!,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'pensions/history',
+                    name: RouteNames.pensionHistory,
+                    builder: (_, __) => const PensionHistoryScreen(),
                   ),
                 ],
               ),

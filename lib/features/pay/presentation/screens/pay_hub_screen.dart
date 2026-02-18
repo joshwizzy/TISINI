@@ -256,7 +256,7 @@ class _CategoriesGrid extends StatelessWidget {
             PayCategoryTile(
               icon: PhosphorIconsBold.scales,
               label: 'Statutory',
-              onTap: () => context.goNamed(RouteNames.businessCategory),
+              onTap: () => context.goNamed(RouteNames.pensionHub),
             ),
             PayCategoryTile(
               icon: PhosphorIconsBold.plus,
