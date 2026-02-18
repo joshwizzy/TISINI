@@ -124,6 +124,11 @@ class MoreHubScreen extends ConsumerWidget {
             title: 'Pinned Merchants',
             onTap: () => context.goNamed(RouteNames.pinnedMerchants),
           ),
+          MoreMenuTile(
+            icon: PhosphorIconsBold.fileArrowUp,
+            title: 'Import Statements',
+            onTap: () => context.goNamed(RouteNames.importSource),
+          ),
           // KYC tile with status badge
           profileAsync.when(
             data: (profile) => MoreMenuTile(
@@ -142,11 +147,7 @@ class MoreHubScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('KYC flow coming soon')),
-                );
-              },
+              onTap: () => context.goNamed(RouteNames.kycEntry),
             ),
             loading: () => const SizedBox.shrink(),
             error: (_, __) => const SizedBox.shrink(),

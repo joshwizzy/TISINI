@@ -14,10 +14,25 @@ import 'package:tisini/features/activity/presentation/screens/transaction_detail
 import 'package:tisini/features/auth/presentation/screens/create_pin_screen.dart';
 import 'package:tisini/features/auth/presentation/screens/login_screen.dart';
 import 'package:tisini/features/auth/presentation/screens/otp_screen.dart';
+import 'package:tisini/features/bulk_import/presentation/screens/import_progress_screen.dart';
+import 'package:tisini/features/bulk_import/presentation/screens/import_result_screen.dart';
+import 'package:tisini/features/bulk_import/presentation/screens/import_review_screen.dart';
+import 'package:tisini/features/bulk_import/presentation/screens/import_source_screen.dart';
+import 'package:tisini/features/bulk_import/presentation/screens/import_upload_screen.dart';
 import 'package:tisini/features/home/presentation/screens/attention_list_screen.dart';
 import 'package:tisini/features/home/presentation/screens/dashboard_screen.dart';
 import 'package:tisini/features/home/presentation/screens/home_screen.dart';
 import 'package:tisini/features/home/presentation/screens/insight_detail_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_account_type_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_approved_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_checklist_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_entry_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_failed_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_id_back_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_id_front_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_pending_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_review_screen.dart';
+import 'package:tisini/features/kyc/presentation/screens/kyc_selfie_screen.dart';
 import 'package:tisini/features/more/presentation/screens/connect_account_screen.dart';
 import 'package:tisini/features/more/presentation/screens/connected_accounts_screen.dart';
 import 'package:tisini/features/more/presentation/screens/help_support_screen.dart';
@@ -433,6 +448,83 @@ final routerProvider = Provider<GoRouter>((ref) {
                     path: 'legal',
                     name: RouteNames.legalAbout,
                     builder: (_, __) => const LegalAboutScreen(),
+                  ),
+                  // Import flow
+                  GoRoute(
+                    path: 'import/source',
+                    name: RouteNames.importSource,
+                    builder: (_, __) => const ImportSourceScreen(),
+                  ),
+                  GoRoute(
+                    path: 'import/upload',
+                    name: RouteNames.importUpload,
+                    builder: (_, __) => const ImportUploadScreen(),
+                  ),
+                  GoRoute(
+                    path: 'import/review',
+                    name: RouteNames.importReview,
+                    builder: (_, __) => const ImportReviewScreen(),
+                  ),
+                  GoRoute(
+                    path: 'import/progress',
+                    name: RouteNames.importProgress,
+                    builder: (_, __) => const ImportProgressScreen(),
+                  ),
+                  GoRoute(
+                    path: 'import/result',
+                    name: RouteNames.importResult,
+                    builder: (_, __) => const ImportResultScreen(),
+                  ),
+                  // KYC flow
+                  GoRoute(
+                    path: 'kyc',
+                    name: RouteNames.kycEntry,
+                    builder: (_, __) => const KycEntryScreen(),
+                  ),
+                  GoRoute(
+                    path: 'kyc/account-type',
+                    name: RouteNames.kycAccountType,
+                    builder: (_, __) => const KycAccountTypeScreen(),
+                  ),
+                  GoRoute(
+                    path: 'kyc/checklist',
+                    name: RouteNames.kycChecklist,
+                    builder: (_, __) => const KycChecklistScreen(),
+                  ),
+                  GoRoute(
+                    path: 'kyc/id-front',
+                    name: RouteNames.kycIdFront,
+                    builder: (_, __) => const KycIdFrontScreen(),
+                  ),
+                  GoRoute(
+                    path: 'kyc/id-back',
+                    name: RouteNames.kycIdBack,
+                    builder: (_, __) => const KycIdBackScreen(),
+                  ),
+                  GoRoute(
+                    path: 'kyc/selfie',
+                    name: RouteNames.kycSelfie,
+                    builder: (_, __) => const KycSelfieScreen(),
+                  ),
+                  GoRoute(
+                    path: 'kyc/review',
+                    name: RouteNames.kycReview,
+                    builder: (_, __) => const KycReviewScreen(),
+                  ),
+                  GoRoute(
+                    path: 'kyc/pending',
+                    name: RouteNames.kycPending,
+                    builder: (_, __) => const KycPendingScreen(),
+                  ),
+                  GoRoute(
+                    path: 'kyc/approved',
+                    name: RouteNames.kycApproved,
+                    builder: (_, __) => const KycApprovedScreen(),
+                  ),
+                  GoRoute(
+                    path: 'kyc/failed',
+                    name: RouteNames.kycFailed,
+                    builder: (_, __) => const KycFailedScreen(),
                   ),
                 ],
               ),

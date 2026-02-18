@@ -51,3 +51,16 @@ enum ContributionStatus { pending, completed, failed }
 enum AccountProvider { mtn, airtel, stanbic, dfcu, equity, centenary }
 
 enum KycAccountType { business, gig }
+
+enum ImportSource { bank, mobileMoney }
+
+enum ImportJobStatus { uploading, mapping, processing, completed, failed }
+
+enum KycDocumentType {
+  idFront,
+  idBack,
+  selfie,
+  businessRegistration,
+  licence,
+  tin,
+}

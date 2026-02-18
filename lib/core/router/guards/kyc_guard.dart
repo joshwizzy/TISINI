@@ -1,8 +1,10 @@
 import 'package:go_router/go_router.dart';
+import 'package:tisini/features/auth/domain/entities/kyc_status.dart';
 
-/// Stub KYC guard — always allows access.
-/// Will block non-approved KYC users from payment flows.
-String? kycGuard(GoRouterState state) {
-  // TODO(tisini): Implement with KycStatus from kyc_provider
-  return null;
+/// KYC guard — redirects non-approved users to /more/kyc.
+String? kycGuard(GoRouterState state, {KycStatus? status}) {
+  if (status == null || status == KycStatus.approved) {
+    return null;
+  }
+  return '/more/kyc';
 }
